@@ -1,41 +1,56 @@
 #include <iostream>
 #include <fstream>
 #include "json.hpp"
+
 using json = nlohmann::json;
 
 int main() {
-    std::fstream a("cfg.json");
-    json json1;
-    json1.parse(a);
 
-    std::string corners = json1["corner"]["start"];
-    std::string cornere = json1["corner"]["end"];
+    json json1;
+    std::ifstream myfile("../cfg.json", std::ios::out | std::ios::app | std::ios::binary);
+    if (myfile.good()) {
+        try {
+            json1 << myfile;
+        } catch (...) {
+            std::cout << "Error processing json." << std::endl;
+            std::terminate();
+        }
+        myfile.close();
+    } else {
+        exit(1);
+    }
+
+
+    std::string cornerStart = json1["start"];
+    std::string cornerEnd = json1["end"];
 
     // leftupper, rightdown, leftdown
 
-    if (corners == "leftupper") {
-        // Start is in left upper corner
-    } else if (corners == "rightdown") {
-        // Start is in left upper corner
-    } else if (corners == "leftdown") {
-        // Start is in left down corner
+    if (cornerStart == "leftupper") {
+        // TODO: Put code here
+    } else if (cornerStart == "rightdown") {
+        // TODO: Put code here
+    } else if (cornerStart == "leftdown") {
+        // TODO: Put code here
     } else {
         exit(1);
     }
 
-    if (cornere == "leftupper") {
-        // End is in left upper corner
-    } else if (cornere == "rightdown") {
-        // End is in left upper corner
-    } else if (cornere == "leftdown") {
-        // End is in left down corner
+    if (cornerEnd == "leftupper") {
+        // TODO: Put code here
+    } else if (cornerEnd == "rightdown") {
+        // TODO: Put code here
+    } else if (cornerEnd == "leftdown") {
+        // TODO: Put code here
     } else {
         exit(1);
     }
 
-    if (cornere == corners) {
+    if (cornerEnd == cornerStart) {
         exit(1);
     }
+
+    std::cout << cornerStart;
 
     return 0;
 }
